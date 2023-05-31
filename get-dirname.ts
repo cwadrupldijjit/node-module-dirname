@@ -7,5 +7,6 @@ export function getDirname() {
     
     const [ , filePath ] = stackLine.match(/\(?file:\/\/(.+?)\:\d+\:\d+\)?$/) ?? [];
     
-    return dirname(filePath);
+    // this removes the extra leading slash from the resulting path because it's problematic on Windows
+    return dirname(filePath).slice(process.platform == 'win32' ? 1 : 0);
 }
